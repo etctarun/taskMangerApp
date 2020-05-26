@@ -23,10 +23,18 @@ export default function App() {
     });
   };
 
+  const cancelTaskHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
     <View style={styles.screen}>
       <Button title="Add new Task" onPress={() => setIsAddMode(true)} />
-      <TaskInput visible={isAddMode} onAddTask={addTaskHandler} />
+      <TaskInput
+        visible={isAddMode}
+        onAddTask={addTaskHandler}
+        onCancel={cancelTaskHandler}
+      />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={task}

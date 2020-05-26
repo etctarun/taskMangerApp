@@ -4,8 +4,13 @@ import { StyleSheet, Button, View, TextInput, Modal } from "react-native";
 const TaskInput = (props) => {
   const [enteredTask, setEnteredTask] = useState("");
 
-  const inputHandler = (enteredTask) => {
+  const taskInputHandler = (enteredTask) => {
     setEnteredTask(enteredTask);
+  };
+
+  const addTaskHandler = () => {
+    props.onAddTask(enteredTask);
+    setEnteredTask(" ");
   };
 
   return (
@@ -14,11 +19,19 @@ const TaskInput = (props) => {
         <TextInput
           placeholder="Add Task"
           style={styles.input}
-          onChangeText={inputHandler}
+          onChangeText={taskInputHandler}
           value={enteredTask}
         />
-        <Button title="ADD" onPress={props.onAddTask.bind(this, enteredTask)} />
-        {/* <Button title="ADD" onPress={() => props.onAddTask(enteredTask)} /> */}
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="CANCEL" color="red" onPress={props.onCancel} />
+          </View>
+          <View style={styles.button}>
+            <Button title="ADD" onPress={addTaskHandler} />
+            {/* <Button title="ADD" onPress={props.onAddTask.bind(this, enteredTask)} /> */}
+            {/* <Button title="ADD" onPress={() => props.onAddTask(enteredTask)} /> */}
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -38,6 +51,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     marginBottom: 10,
+  },
+
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "60%",
+  },
+
+  button: {
+    width: "40%",
   },
 });
 
